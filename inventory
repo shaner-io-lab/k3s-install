@@ -1,0 +1,5 @@
+[masters]
+k3s-master-01-raspi4.lab.shaner.local
+
+[workers]
+k3s-worker-[01:05]-raspi3.lab.shaner.local
