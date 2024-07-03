@@ -1,0 +1,26 @@
+---
+# tasks file for update_raspberries
+
+- name: Update apt package index
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: dist
+    autoremove: true
+
+- name: Check if reboot is required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+
+- name: Reboot if necessary
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible because it is required"
+    pre_reboot_delay: 30
+    post_reboot_delay: 60
+    connect_timeout: 600
+    reboot_timeout: 3600
+    test_command: whoami
+  when: reboot_required.stat.exists

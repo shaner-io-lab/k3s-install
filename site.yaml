@@ -1,0 +1,7 @@
+- name: K3s installation
+  hosts: all
+  remote_user: ansible
+  become: true
+
+  roles:
+    - system-upgrade
